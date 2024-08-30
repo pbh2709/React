@@ -1,0 +1,20 @@
+#Nav{
+    margin-top: 20px;
+ 
+}
+
+.NavBar {
+    margin-top: 10px;
+}
+
+
+.Nav > span{
+    display: flex;
+}
+
+#currentDateTime{
+    display: inline;
+    margin-top: 20px;
+    justify-content: end;
+    flex: content;
+}
