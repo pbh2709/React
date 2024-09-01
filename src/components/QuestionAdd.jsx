@@ -17,10 +17,26 @@ const QuestionAdd1 = ({ initData, onSubmit }) => {
     
   });
 
+  // const nav = useNavigate();
   const [title, settitle] = useState('');
+  const [choice1, setchoice1] = useState('');
+  const [choice2, setchoice2] = useState('');
+  const [choice3, setchoice3] = useState('');
+  const [choice4, setchoice4] = useState('');
+  const [answer, setanswer] = useState('');
+
+  const QuestionData = {
+    title: {title},
+    choice1: {choice1},
+    choice2: {choice2},
+    choice3: {choice3},
+    choice4: {choice4},
+    answer : {answer},
+    createDate: new Date().getDate().toLocaleString
+  };
 
 
-
+const url = "http://localhost:8080"
 
 
  
@@ -60,13 +76,16 @@ const QuestionAdd1 = ({ initData, onSubmit }) => {
         e.preventDefault()
         console.log("시작")
         try{
-            const resp = await axios.post('/QuestionAddPage',{title},);
+          const createdDate = new Date().getTime().toLocaleString;
+            const resp = await axios.post(url +'/QuestionAddPage',{title,choice1,choice2,choice3,choice4,answer,createdDate},);
             console.log(resp.data);
             console.log("성공")
+            
         }catch(error) {
             console.log(error.response);
             console.log("실패")
         }
+       
         };
     
 
@@ -81,28 +100,33 @@ const QuestionAdd1 = ({ initData, onSubmit }) => {
         </Form.Group>
         <Form.Group>
           <label htmlFor="exampleInputPassword1">선택지 1번</label>
-          <Form.Input type="choice1" value={input.choice1} name="choice1"
-          onChange={onChangeInput}  />
+          <Form.Input type="text" id ="choice1" value= {choice1} name="choice1"
+          onChange={(e) =>setchoice1(e.target.value)}  />
+             <Form.Text text="muted">    선택지를 입력해주세요</Form.Text>
         </Form.Group>
         <Form.Group>
           <label htmlFor="exampleInputPassword1">선택지 2번</label>
-          <Form.Input type="choice2" value={input.choice2} name="choice2"
-          onChange={onChangeInput}  />
+          <Form.Input type="choice2" value={choice2} name="choice2"
+          onChange={(e) =>setchoice2(e.target.value)}  />
+            <Form.Text text="muted">    선택지를 입력해주세요</Form.Text>
         </Form.Group>
         <Form.Group>
           <label htmlFor="exampleInputPassword1">선택지 3번</label>
-          <Form.Input type="choice3" value={input.choice3} name="choice3"
-          onChange={onChangeInput}/>
+          <Form.Input type="choice3" value={choice3} name="choice3"
+          onChange={(e) =>setchoice3(e.target.value)}/>
+            <Form.Text text="muted">    선택지를 입력해주세요</Form.Text>
         </Form.Group>
         <Form.Group>
           <label htmlFor="exampleInputPassword1">선택지 4번</label>
-          <Form.Input type="choice4" value={input.choice4} name="choice4"
-          onChange={onChangeInput} />
+          <Form.Input type="choice4" value={choice4} name="choice4"
+          onChange={(e) =>setchoice4(e.target.value)} />
+            <Form.Text text="muted">    선택지를 입력해주세요</Form.Text>
         </Form.Group>
         <Form.Group>
           <label htmlFor="exampleInputPassword1">정답</label>
-          <Form.Input type="answer" value={input.answer} name="answer"
-          onChange={onChangeInput}  />
+          <Form.Input type="answer" value={answer} name="answer"
+          onChange={(e) =>setanswer(e.target.value)}  />
+            <Form.Text text="muted">    정답을 입력해주세요</Form.Text>
         </Form.Group>
         <Form.Group>
           <Form.Check>

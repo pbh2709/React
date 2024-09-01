@@ -1,8 +1,12 @@
+import NavBar from "../components/NavBar";
+import TestedInfoList from "../components/TestedInfoList";
+
 const TestedInfo = ()=>{
 
     return(
         <div>
-            시험정보  
+            <NavBar></NavBar>
+            <TestedInfoList></TestedInfoList>
         </div>
     );
 }

@@ -15,17 +15,25 @@ import TestedInfo from "./pages/TestedInfo";
 import QuestionBankHome from "./pages/QuestionBankHome";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TestDto from "./pages/TestDto";
+import axios from "axios";
+import Question_Edit from "./pages/Question_Edit";
 
- function reducer(state, action) {
+
+async function reducer(state, action) {
   let nextState;
+
+  const url = "http://localhost:8080"
 
   switch (action.type) {
     case "INIT":
       return action.data;
-    case "CREATE": {
-      nextState = [action.data, ...state];
-      break;
-    }
+  case "CREATE": {
+      nextState = [action.data,...state];
+   
+          
+            break;
+      }
+    
     case "UPDATE": {
       nextState = state.map((item) =>
         String(item.id) === String(action.data.id)
@@ -143,6 +151,7 @@ function App() {
             <Route path="/TestDto" element={<TestDto />} />
             <Route path="/Question_add" element={<Question_add />} />
             <Route path="/Question_list" element={<Question_list />} />
+            <Route path="/Question_Edit/:uuid" element={<Question_Edit />} />
             <Route path="/Tested" element={<Tested />} />
             <Route path="/TestedInfo" element={<TestedInfo />} />
             <Route path="*" element={<Notfound />} />
