@@ -23,14 +23,38 @@ function NavBar() {
         <Alert.Link href="/QuestionBankHome"> Home</Alert.Link>  
         </Nav.Link>
       </Nav.Item>
+      <NavDropdown title="문제 목록" id="nav-dropdown">
+        <NavDropdown.Item eventKey="객관식 문제 목록. " href="Question_list">
+        <Alert.Link href="/Question_list"> 
+        객관식 문제 목록 
+        </Alert.Link>
+          </NavDropdown.Item>
+        <NavDropdown.Item eventKey="서술형 문제. "  href='Questions_list'>
+        <Alert.Link href="/Questions_list"> 
+        서술형 문제  
+        </Alert.Link>
+          </NavDropdown.Item>
+        <NavDropdown.Item eventKey="4.3">
+          Something else here
+          </NavDropdown.Item>
+        <NavDropdown.Divider />
+        <NavDropdown.Item eventKey="4.4">
+          Separated link
+          </NavDropdown.Item>
+      </NavDropdown>
       <Nav.Item>
-        <Nav.Link eventKey="문제 목록으로" href="/Question_list">
-        <Alert.Link href="/Question_list"> 문제 목록</Alert.Link>
+        <Nav.Link eventKey="시험 목록으로" href="/TestedInfo">
+        <Alert.Link href="/TestedInfo"> 시험 결과확인</Alert.Link>
         </Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link eventKey="시험을 응시합니다. " href="/Tested">
         <Alert.Link href="/Tested"> 시험 응시</Alert.Link>
+        </Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link eventKey="서술형 채점" href="/QuestionsGrading">
+        <Alert.Link href="/QuestionsGrading"> 서술형 채점</Alert.Link>
         </Nav.Link>
       </Nav.Item>
       <NavDropdown title="문제 출제" id="nav-dropdown">
@@ -39,8 +63,10 @@ function NavBar() {
         객관식 문제 출제 
         </Alert.Link>
           </NavDropdown.Item>
-        <NavDropdown.Item eventKey="4.2">
-          Another action
+        <NavDropdown.Item eventKey="서술형 문제를 출제합니다. "  href='Questions'>
+        <Alert.Link href="/Questions"> 
+        서술형 문제 출제 
+        </Alert.Link>
           </NavDropdown.Item>
         <NavDropdown.Item eventKey="4.3">
           Something else here

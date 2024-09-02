@@ -17,6 +17,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import TestDto from "./pages/TestDto";
 import axios from "axios";
 import Question_Edit from "./pages/Question_Edit";
+import Questions from "./pages/Questions";
+import Questions_list from "./pages/Questions_list";
+import Questions_Edit from "./pages/Questions_Edit";
+import QuestionsGrading from "./pages/QuestionsGrading";
+import Questionsgrading from "./components/Questionsgrading";
+import QuestionsGrade from "./pages/QuestionsGrade";
 
 
 async function reducer(state, action) {
@@ -152,6 +158,12 @@ function App() {
             <Route path="/Question_add" element={<Question_add />} />
             <Route path="/Question_list" element={<Question_list />} />
             <Route path="/Question_Edit/:uuid" element={<Question_Edit />} />
+            <Route path="/Questions" element={<Questions />} />
+            <Route path="/Questions_list" element={<Questions_list />} />
+            <Route path="/Questions_Edit/:uuid" element={<Questions_Edit />} />
+            <Route path="/Questions" element={<Questions />} />
+            <Route path="/QuestionsGrading" element={<QuestionsGrading />} />
+            <Route path="/QuestionsGrade/:uuid3" element={<QuestionsGrading />} />
             <Route path="/Tested" element={<Tested />} />
             <Route path="/TestedInfo" element={<TestedInfo />} />
             <Route path="*" element={<Notfound />} />

@@ -1,6 +1,6 @@
 import Card from 'react-bootstrap/Card';
 import { Button} from 'react-bootstrap';
-import { useState,useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Form } from 'bootstrap-4-react';
@@ -10,43 +10,59 @@ import { Form } from 'bootstrap-4-react';
 const TestedUser  =()=>{
 
   const[Question ,SetQuestion] = useState(['testuuid']);
+  const[Questions ,SetQuestions] = useState(['testuuid']);
   const [count,setCount] =useState(0);
   const [name, setname] = useState('');
+  const uuidRef = React.useRef();
   const [answer1, setAnswer1] = useState('');
   const [answer2, setAnswer2] = useState('');
   const [answer3, setAnswer3] = useState('');
   const [answer4, setAnswer4] = useState('');
   const [answer5, setAnswer5] = useState('');
   const [testUuid, settestUuid] = useState('');
-  const [answer,setanswer]=useState([]);
+  const [answers,setanswers]=useState([]);
+  
 const [Answers ,setAnswers] = useState([answer1,answer2,answer3,answer4,answer5])
 
 
   useEffect(()=> {
-    axios.get('http://localhost:8080/Testing',
+    axios.get('http://localhost:8080/TestingQuestion',
     ).then(res=>{
             // 스프링으로부터 받아온 list를 Question에 넣기
             SetQuestion(res.data);
             console.log("성공")
             console.log("len: "+res.data.length); // 이걸 여기서 출력(확인)후 
         })
-  },[]
+ 
+        axios.get('http://localhost:8080/TestingQuestions',
+        ).then(res=>{
+                // 스프링으로부터 받아온 list를 Question에 넣기
+                SetQuestions(res.data);
+                console.log("성공")
+                console.log("len: "+res.data.length); // 이걸 여기서 출력(확인)후 
+            })
+            axios.get('http://localhost:8080/Testing', {
+              withCredentials: true
+            }); 
+              },[]
   )
+
+       axios.create({
+    baseURL: '/Testing',
+    withCredentials: true, // 이 부분 추가
+  });
   //
   // settestUuid(tuuid)
 
     const onSubmitQuestion =async(e) =>{
       e.preventDefault()
       console.log("시작")
-     for(let i=0; i<=Question.length;i++){
-       if(answer[i]===Answers[i+1]){
-           let count= +1;
-           console.log(count);
-          }
-        }
+       settestUuid(e.target.value) 
+      const uuid = uuidRef.current.value
+      console.log(uuid)
       try{
         const createdDate = new Date().getTime().toLocaleString;
-          const resp = await axios.post('http://localhost:8080/Score',{name,count,answer1,answer2,answer3,testUuid});
+          const resp = await axios.post('http://localhost:8080/Score',{name,count,answer1,answer2,answer3,answers,uuid});
           console.log(resp.data);
           console.log("성공")         
       }catch(error) {
@@ -73,32 +89,25 @@ const [Answers ,setAnswers] = useState([answer1,answer2,answer3,answer4,answer5]
        
       
             Question.map(function(a,i){
-                   
-             
               return(
-
                 <>
-  {/* <input  name='tuuid'  placeholder="5번 정답 입력"onLoad={e => { settestUuid(e.target.value)} } 
-  
-  value={Question[0].testuuid} ></input> */}
-        <Card.Title  key={Question[i].testuuid}  style={{marginTop : 20}}>객관식{i+1}번{}{}{Question[i].title}</Card.Title>
+        <Card.Title  key={a.testuuid}  style={{marginTop : 20}}>객관식{i+1}번{}{}{a.title}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">(5점)</Card.Subtitle>
         <Card.Text>
-        ① {Question[i].choice1}
+        ① {a.choice1}
         </Card.Text>
          <Card.Text>
-         ②{Question[i].choice2}
+         ②{a.choice2}
         </Card.Text>
           <Card.Text>
-          ③{Question[i].choice3}
+          ③{a.choice3}
         </Card.Text>
           <Card.Text>
-          ④{Question[i].choice4}
+          ④{a.choice4}
         </Card.Text>
-        {/* <input  name='testuuid' style={{} }  onClick={(e) =>settestUuid(e.target.value)}  defaultvalue={Question[0].testuuid} >{Question[0].testuuid}</input> */}
 
         <Card.Text style={{display :'none'}}>
-           setAnswer({Question[i].answer})
+           setAnswer({a.answer})
            {/* <input type="name" style={{display :'none'}} value={} onBlur={()=>settestUuid(Question[i].testUuid)}  >{Question[i].testUuid}</input>v */}
         </Card.Text>
         {/* <input  name='answer1'  placeholder="1번 정답 입력" onChange={(e) =>setAnswer1(e.target.value)} value={Answer[i]}   ></input> */}
@@ -111,15 +120,38 @@ const [Answers ,setAnswers] = useState([answer1,answer2,answer3,answer4,answer5]
              <input  name='answer3'  placeholder="3번 정답 입력" onChange={(e) =>setAnswer3(e.target.value)}  value={answer3}  ></input>
              <input  name='answer4'  placeholder="4번 정답 입력" onChange={(e) =>setAnswer4(e.target.value)}  value={answer4}  ></input>
              <input  name='answer5'  placeholder="5번 정답 입력" onChange={(e) =>setAnswer5(e.target.value)}  value={answer5} ></input>
-           
-             <input  name='tuuid'  placeholder="5번 정답 입력"onClick={e => { settestUuid(e.target.value)} }  value={Question[0].testuuid} ></input>
+             <input   name='tuuid' value={Question[0].testuuid} ref={uuidRef} ></input>
+
+
              
+             
+      </Card.Body>
+
+
+      <Card.Body>
+      {   
+            Questions.map(function(a,i){
+              return(
+                <>
+        <Card.Title  key={Questions[i].testuuid}  style={{marginTop : 20}}>서술형{i+1}번{}{}{Questions[i].title}</Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">(추후채점)</Card.Subtitle>
+  
+        {/* <input  name='answer1'  placeholder="1번 정답 입력" onChange={(e) =>setAnswer1(e.target.value)} value={Answer[i]}   ></input> */}
+           </> 
+           )})
+           
+              }
+             <textarea  style={{marginTop:30,
+              width:300,
+              height :200,
+             }} name='answers'  placeholder="서술형 정답 입력" onChange={(e) =>setanswers(e.target.value)} value={answers}   ></textarea>
+           
       </Card.Body>
     </Card>
     <Button type="submit"  style={{marginTop : 10,
                                   backgroundColor : 'white'
-    }}   onClick={onSubmitQuestion}
-          ><Link to={"/TestedInfo"}>시험지 제출</Link></Button>
+    }}   onClick={onSubmitQuestion}  
+          ><Link to={"/QuestionBankHome"}>시험지 제출</Link></Button> 
     <Button href="#"  style={{marginTop : 10}}>시험 점수 목록으로</Button> 
     </form>
         

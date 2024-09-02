@@ -4,15 +4,15 @@ import Button from "./Button";
 
 
 
-const Question_List = ({ id, Title, choice1,choice2,choice3,choice4, answer,createdDate }) => {
+const Question_List = ({ uuid, Title, choice1,choice2,choice3,choice4, answer,createdDate }) => {
     const nav = useNavigate();
   
     const goQuestionPage = () => {
-      nav(`/Question_view/${id}`);
+      nav(`/Question_view/${uuid}`);
     };
   
     const goEditPage = () => {
-      nav(`/Question_edit/${id}`);
+      nav(`/Question_Edit/${uuid}`);
     };
   
     return (

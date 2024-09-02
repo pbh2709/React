@@ -68,12 +68,17 @@ function Question_edit () {
                
                 };
   
-
+              
     return (
+
+      QuestionList.map(function(a,i){
+
+
+        return(
         <Form>
           <Form.Group>
             <label htmlFor="exampleInputEmail1">객관식 문제</label>
-            <Form.Input type="text" id="title"  value={title} name="title" text={ QuestionList.title} 
+            <Form.Input type="text" id="title"  defaultvalue={QuestionList.title} name="title" Text={ QuestionList.title} 
            onChange={(e) =>settitle(e.target.value)} placeholder="문제 입력" >
          
            </Form.Input>
@@ -81,9 +86,8 @@ function Question_edit () {
           </Form.Group>
           <Form.Group>
             <label htmlFor="exampleInputPassword1">선택지 1번</label>
-            <Form.Input type="text" id ="choice1" value= {choice1} name="choice1" text={ QuestionList.choice1} 
+            <Form.Input type={QuestionList.title} id ="choice1" value= {choice1} name="choice1" text={ QuestionList.choice1} 
             onChange={(e) =>setchoice1(e.target.value)} placeholder="선택지 입력" >
-               
             </Form.Input>
                <Form.Text text="muted">    선택지를 입력해주세요</Form.Text>
           </Form.Group>
@@ -119,6 +123,8 @@ function Question_edit () {
             </Form.Input>
               <Form.Text text="muted">    정답을 입력해주세요</Form.Text>
           </Form.Group>
+
+          
           <Form.Group>
             <Form.Check>
               <Form.CheckInput type="checkbox" id="exampleCheck1" />
@@ -131,6 +137,7 @@ function Question_edit () {
             
           />
         </Form>
-      )
-}
+     ) }))
+    }
+  
 export default Question_edit

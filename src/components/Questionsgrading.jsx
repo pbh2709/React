@@ -4,7 +4,7 @@ import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 
-    function TestedInfoList() {
+    function Questionsgrading() {
 
         const [TestInfoList , SetTestInfoList] = useState([]);
       
@@ -26,12 +26,9 @@ import { Link } from "react-router-dom";
           <thead>
             <tr>
               <th>이름</th>
-              <th>재시험</th>
-              <th>점수</th>
-              <th>객관식 정답 수</th>
-              <th>객관식 문제 수 </th>
               <th>서술형 채점 여부</th>
-            
+              <th>서술형 점수</th>
+              <th>채점</th>
             </tr>
           </thead>
           <tbody>
@@ -41,13 +38,9 @@ import { Link } from "react-router-dom";
                     return(
                         <tr>
                       <td>{TestInfoList[i].userName}</td>
-                      <td> {TestInfoList[i].retest}</td>
-                      <td>{TestInfoList[i].scoreTotal}</td> 
-                     <td>{TestInfoList[i].correctAnswerCount}</td>
-                    <td>{TestInfoList[i].questionCount}</td>
                     <td>{TestInfoList[i].grading}</td>
-                     
-                      <td> <Link to={`/TestView/uuid=${TestInfoList[i].uuid}`}> 시험지보기</Link></td>
+                    <td>{TestInfoList[i].correctsAnswerScore}</td>
+                      <td> <Link to={`/Questionsgrade/uuid3=${TestInfoList[i].uuid3}`}> 서술형 채점</Link></td>
                       </tr>
                     )
                   })
@@ -59,4 +52,4 @@ import { Link } from "react-router-dom";
         );
       }
     
-export default TestedInfoList
+export default Questionsgrading

@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Alert } from 'bootstrap-4-react/lib/components';
 import Button from './Button';
 
-const QuestionList = ()=>{
+const Questions_List = ()=>{
 
 
   const [TestList , SetTestList] = useState([]);
@@ -13,7 +13,7 @@ const QuestionList = ()=>{
 
   //한번만 렌더링 하도록 이펙트 씀 
       useEffect(()=> {
-          axios.get('http://localhost:8080/Question')
+          axios.get('http://localhost:8080/Questions')
               .then(res=>{
                   // 스프링으로부터 받아온 list를 TestList에 넣기
                   SetTestList(res.data);
@@ -28,8 +28,6 @@ const QuestionList = ()=>{
     <thead>
       <tr>
         <th>문제</th>
-        <th>선택지</th>
-        <th>정답</th>
         <th>출제일</th>
         <th>수정/삭제</th>
       </tr>
@@ -41,28 +39,10 @@ const QuestionList = ()=>{
               return(
                   <tr>
                 <td>{TestList[i].title}</td>
-                <td>
-              <label class="form-check-label">
-                ① {TestList[i].choice1}
-              </label>
-              <br></br>
-              <label class="form-check-label">
-                ②{TestList[i].choice2}
-              </label>
-              <br></br>
-              <label class="form-check-label">
-               ③{TestList[i].choice3}
-              </label>
-              <br></br>
-              <label class="form-check-label">
-              ④{TestList[i].choice4}
-              </label>
-              </td>
-                <td>{TestList[i].answer}</td>
                 <td>{TestList[i].createdAt}</td>
                 <td> <Link
           to={{
-            pathname: `/Question_Edit/${TestList[i].uuid}`,
+            pathname: `/Questions_Edit/${TestList[i].uuid}`,
             search: "?isForEdit=true",
             state: {
               uuid: TestList[i].uuid,
@@ -70,10 +50,10 @@ const QuestionList = ()=>{
             },
           }}
         >
-          <button type="primary">수정</button>
+          <button type="primary" text={"수정"}>수정</button>
         </Link>
 /<button onClick={()=>{
-            axios.get(`http://localhost:8080/QuestionDelete?uuid=${TestList[i].uuid}`).then(() => {alert('삭제완료');}).catch((error) => {console.log(error)})
+            axios.get(`http://localhost:8080/QuestionsDelete?uuid=${TestList[i].uuid}`).then(() => {alert('삭제완료');}).catch((error) => {console.log(error)})
            
             window.location.href ="/QuestionBankHOme";
         }}>삭제</button> </td>
@@ -88,5 +68,4 @@ const QuestionList = ()=>{
   );
 }
 
-
-export default QuestionList;
+export default Questions_List;
